@@ -1,0 +1,55 @@
+{
+  "name": "github-scrapers",
+  "description": "Tools that scrape, crawl or mine GitHub itself",
+  "queries": [
+    "topic:github-scraper",
+    "topic:github-crawler",
+    "topic:github-scraping",
+    "topic:github-mining",
+    "\"github scraper\" in:name,description",
+    "\"github crawler\" in:name,description",
+    "\"scrape github\" in:name,description",
+    "\"github scraping\" in:name,description",
+    "\"scrapes github\" in:description",
+    "\"crawl github\" in:name,description",
+    "\"github repository scraper\" in:description",
+    "\"github repo scraper\" in:description"
+  ],
+  "exclude": "(?i)awesome|curated list|onlyfans",
+  "require": [
+    {
+      "pattern": "(?i)scrap|crawl|mining|miner|harvest"
+    },
+    {
+      "pattern": "(?i)github"
+    }
+  ],
+  "interfaces": [
+    [
+      "cli",
+      "(?i)\\busage:|\\$ \\w+ --|\\bcommand line\\b|\\bcli\\b"
+    ],
+    [
+      "pip",
+      "(?i)\\bpip3? install\\b|\\buv add\\b|\\bpypi\\b"
+    ],
+    [
+      "npm",
+      "(?i)\\bnpm (i|install)\\b|\\bnpx\\b"
+    ],
+    [
+      "action",
+      "(?i)uses: [\\w.-]+/[\\w.-]+@|github action"
+    ],
+    [
+      "docker",
+      "(?i)\\bdocker\\b"
+    ],
+    [
+      "token",
+      "(?i)GITHUB_TOKEN|personal access token"
+    ]
+  ],
+  "min_stars": 5,
+  "days": 365
+}

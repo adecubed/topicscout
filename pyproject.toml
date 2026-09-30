@@ -1,0 +1,26 @@
+[project]
+name = "topicscout"
+version = "0.1.0"
+description = "Find the GitHub repos on a topic, and only the new ones next time. No dependencies, token optional."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Adecubed"}]
+dependencies = []
+keywords = ["github", "scraper", "search", "discovery", "topics"]
+
+[project.urls]
+Homepage = "https://github.com/adecubed/topicscout"
+
+[project.scripts]
+topicscout = "topicscout.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["topicscout"]
+
+[tool.setuptools.package-data]
+topicscout = ["profiles/*.json"]

@@ -1,0 +1,59 @@
+{
+  "name": "ai-memory",
+  "description": "Memory systems for AI agents and LLMs (the adebench list)",
+  "queries": [
+    "topic:agent-memory",
+    "topic:ai-memory",
+    "topic:llm-memory",
+    "topic:memory-mcp",
+    "topic:mcp-memory",
+    "topic:long-term-memory",
+    "topic:agentic-memory",
+    "topic:memory-layer",
+    "topic:memory-system",
+    "\"agent memory\" in:name,description",
+    "\"llm memory\" in:name,description",
+    "\"memory layer\" in:name,description",
+    "\"mcp memory\" in:name,description",
+    "\"long-term memory\" in:description",
+    "\"persistent memory\" in:description"
+  ],
+  "exclude": "(?i)awesome|curated list|reading list|\\bpapers\\b|\\bsurvey\\b",
+  "require": [
+    {
+      "pattern": "(?i)memor|\\bmem\\b|remember",
+      "own_words": true
+    },
+    {
+      "pattern": "(?i)\\b(agents?|agentic|llms?|ai|mcp|claude|gpt|rag|assistants?|chatbots?)\\b"
+    }
+  ],
+  "interfaces": [
+    [
+      "mcp",
+      "(?i)\\bmcp\\b|modelcontextprotocol"
+    ],
+    [
+      "pip",
+      "(?i)\\bpip3? install\\b|\\buv add\\b|\\bpypi\\b"
+    ],
+    [
+      "npm",
+      "(?i)\\bnpm (i|install)\\b|\\bnpx\\b|\\bbun add\\b|\\bpnpm add\\b"
+    ],
+    [
+      "rest",
+      "\\bcurl\\b[^\n]*https?://|\\bREST\\b|\\bopenapi\\b|/v1/"
+    ],
+    [
+      "docker",
+      "(?i)\\bdocker\\b"
+    ],
+    [
+      "plugin",
+      "(?i)/plugin install|\\.?claude-plugin|claude code plugin"
+    ]
+  ],
+  "min_stars": 10,
+  "days": 90
+}
