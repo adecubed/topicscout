@@ -1,19 +1,23 @@
 [project]
 name = "topicscout"
-version = "0.1.0"
+version = "0.2.0"
 description = "Find the GitHub repos on a topic, and only the new ones next time. No dependencies, token optional."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [{name = "Adecubed"}]
 dependencies = []
-keywords = ["github", "scraper", "search", "discovery", "topics"]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.2"]   # topicscout mcp: the MCP server
+keywords = ["github", "scraper", "search", "discovery", "topics", "mcp"]
 
 [project.urls]
 Homepage = "https://github.com/adecubed/topicscout"
 
 [project.scripts]
 topicscout = "topicscout.cli:main"
+topicscout-mcp = "topicscout.mcp_server:main"
 
 [build-system]
 requires = ["setuptools>=77"]

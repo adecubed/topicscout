@@ -19,7 +19,7 @@ last push, language, license, a guess at the interface from the README (MCP, pip
 npm, REST, Docker...) and the description. `candidates.json` keeps everything seen,
 so a weekly run is a short list, not the same 300 repos again.
 
-No dependencies, Python 3.11+. `GITHUB_TOKEN` is optional: without it the searches
+No dependencies (the MCP server is an optional extra), Python 3.11+. `GITHUB_TOKEN` is optional: without it the searches
 are paced to stay under GitHub's 10 per minute and READMEs are capped at 40 per run.
 
 ## Why
@@ -56,8 +56,28 @@ topicscout run github-scrapers --json -q
 {"profile": "github-scrapers", "found": 19, "kept": 17, "new": [{"full_name": "yusufkaraaslan/Skill_Seekers", "stars": 15052, "interface": ["cli", "pip", "action"], "...": "..."}, "..."], "stopped": null, "out": "scout-github-scrapers"}
 ```
 
-It is a command-line tool and a Python library (`from topicscout.core import Profile, run`),
-not an MCP server; an agent calls it like any other command.
+It is also a Python library (`from topicscout.core import Profile, run`) and an MCP server.
+
+## As an MCP server
+
+```bash
+pip install "topicscout[mcp]"
+claude mcp add topicscout -- topicscout mcp      # Claude Code; any MCP client runs `topicscout mcp`
+```
+
+Or in a client's JSON config: `{"command": "topicscout", "args": ["mcp"], "env": {"GITHUB_TOKEN": "..."}}`.
+
+| tool | what it does | network |
+|---|---|---|
+| `list_profiles` | built-in profiles and the state folder | no |
+| `scout_run` | search GitHub with a profile, return what is new | yes, slow without a token |
+| `scout_candidates` | what past runs saw: filter by status (`new`, `seen`, `known`), text, stars | no |
+| `scout_mark_known` | add a repo to `known.txt` with a note, so it never comes back as new | no |
+| `doctor` | token and remaining GitHub quota | yes |
+
+The state of each profile lives in `~/.topicscout/<profile>` (or `$TOPICSCOUT_HOME`);
+every tool also takes `out`, the same folder the CLI's `--out` takes, so the agent and
+the command line can share one state.
 
 ## Commands
 
@@ -66,6 +86,7 @@ topicscout run PROFILE [--out DIR] [--min-stars N] [--days N] [--readme-max N]
                        [--known-from GLOB ...] [--json] [-q]
 topicscout profiles    # built-in profiles
 topicscout doctor      # token and remaining GitHub quota
+topicscout mcp         # MCP server on stdio (needs topicscout[mcp])
 ```
 
 - `PROFILE` is a built-in name or a path to your own JSON profile.

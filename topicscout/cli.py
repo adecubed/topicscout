@@ -1,4 +1,4 @@
-"""topicscout run | profiles | doctor.
+"""topicscout run | profiles | doctor | mcp.
 
 Results go to stdout (a summary line, or JSON with --json); progress and
 errors go to stderr, so a script or an agent can read stdout as is.
@@ -73,6 +73,11 @@ def _doctor(args) -> int:
     return 1 if "error" in report else 0
 
 
+def _mcp(args) -> int:
+    from .mcp_server import main as serve
+    return serve()
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="topicscout",
                                  description="Find the GitHub repos on a topic, and only the new ones next time.")
@@ -98,6 +103,9 @@ def main(argv: list[str] | None = None) -> int:
     d = sub.add_parser("doctor", help="token and GitHub quota")
     d.add_argument("--json", action="store_true")
     d.set_defaults(func=_doctor)
+
+    m = sub.add_parser("mcp", help='run as an MCP server on stdio (pip install "topicscout[mcp]")')
+    m.set_defaults(func=_mcp)
 
     args = ap.parse_args(argv)
     return args.func(args)
