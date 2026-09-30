@@ -1,9 +1,12 @@
 # topicscout
 
+[![ci](https://github.com/adecubed/topicscout/actions/workflows/ci.yml/badge.svg)](https://github.com/adecubed/topicscout/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/topicscout)](https://pypi.org/project/topicscout/)
+
 Find the GitHub repositories on a topic, and next time only the new ones.
 
 ```bash
-pip install topicscout
+pip install topicscout        # or run it without installing: uvx topicscout run github-scrapers
 topicscout run github-scrapers
 ```
 
@@ -28,6 +31,33 @@ filters, remembers what it has seen and what you already have.
 
 It was the discovery step of [adebench](https://github.com/adecubed/adebench), a
 benchmark for AI memory systems, which uses it to find new memories to measure.
+
+## Your own topic
+
+Copy a built-in profile (they are in [`topicscout/profiles/`](topicscout/profiles/)),
+change the queries and the words a hit must contain, and run it:
+
+```bash
+topicscout run my-topic.json
+```
+
+Run it again next week: `new.md` lists only what appeared in between. Put the repos
+you already know or rejected in `scout-my-topic/known.txt`.
+
+## From a script or an agent
+
+`--json` prints the result on stdout, progress stays on stderr:
+
+```bash
+topicscout run github-scrapers --json -q
+```
+
+```json
+{"profile": "github-scrapers", "found": 19, "kept": 17, "new": [{"full_name": "yusufkaraaslan/Skill_Seekers", "stars": 15052, "interface": ["cli", "pip", "action"], "...": "..."}, "..."], "stopped": null, "out": "scout-github-scrapers"}
+```
+
+It is a command-line tool and a Python library (`from topicscout.core import Profile, run`),
+not an MCP server; an agent calls it like any other command.
 
 ## Commands
 
